@@ -1,0 +1,96 @@
+﻿@{
+    Layout = null;
+    ViewData["Title"] = "Продукти";
+}
+
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8" />
+    <title>@ViewData["Title"]</title>
+    <link rel="icon" type="image/x-icon" href="~/images/icons/favicon.ico" />
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', sans-serif;
+            display: flex;
+            height: 100vh;
+            background-color: #f5f7fa;
+        }
+
+        .sidebar {
+            width: 240px;
+            background-color: #1e3a8a;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            padding: 20px;
+        }
+
+            .sidebar h2 {
+                font-size: 20px;
+                margin-bottom: 30px;
+            }
+
+        .nav-link {
+            display: block;
+            color: white;
+            text-decoration: none;
+            padding: 10px 15px;
+            margin-bottom: 10px;
+            border-radius: 8px;
+            transition: background 0.2s;
+        }
+
+            .nav-link:hover,
+            .nav-link.active {
+                background-color: #3b82f6;
+            }
+
+        .main {
+            flex-grow: 1;
+            padding: 30px;
+            overflow-y: auto;
+        }
+
+        .top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+            .top-bar h1 {
+                font-size: 24px;
+            }
+
+        .avatar {
+            width: 40px;
+            height: 40px;
+            background-color: #ccc;
+            border-radius: 50%;
+        }
+    </style>
+</head>
+<body>
+        <div class="sidebar">
+            <h2>Адмін панель </h2>
+            <a href="/Admin/Dashboard" class="nav-link">📊 Статистика</a>
+            <a href="/Admin/Users" class="nav-link">👥 Користувачі</a>
+            <a href="/Admin/ReviewPhotos" class="nav-link">👥 Замовлення</a>
+            <a href="/Admin/Orders" class="nav-link">🛒 Канбандошка</a>
+            <a href="/Admin/Archive" class="nav-link">📁 Архів</a>
+            <a href="/Admin/Products" class="nav-link">📦 Продукти</a>
+            <a href="/Admin/Messages" class="nav-link">💬 Повідомлення</a>
+            <a href="/Admin/Settings" class="nav-link">⚙️ Налаштування</a>
+            <a href="/" class="nav-link">⏻ Вийти</a>
+        </div>
+
+    <div class="main">
+        <div class="top-bar">
+            <h1>@ViewData["Title"]</h1>
+            <div class="avatar"></div>
+        </div>
+    </div>
+</body>
+</html>

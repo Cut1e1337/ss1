@@ -1,0 +1,47 @@
+﻿@{
+    Layout = null;
+    ViewData["Title"] = "Підтвердження пошти";
+    var prefilledEmail = TempData["Email"] as string ?? "";
+}
+
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <title>Підтвердження пошти</title>
+    <link rel="stylesheet" href="~/css/ConfirmEmail.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+    <div class="container-confirm">
+        <h2>Підтвердження пошти</h2>
+
+        <form method="post" asp-action="ConfirmEmail">
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required value="@prefilledEmail" placeholder="example@email.com" />
+
+            <label for="code">Код підтвердження:</label>
+            <input type="text" id="code" name="code" required placeholder="Наприклад: g5ft67" />
+
+            <button type="submit">Підтвердити</button>
+        </form>
+
+        <div class="message">
+            @if (TempData["Info"] != null)
+            {
+                <p style="color:green">@TempData["Info"]</p>
+            }
+
+            @if (ViewBag.Message != null)
+            {
+                <p style="color:green">@ViewBag.Message</p>
+            }
+
+            @if (ViewBag.Error != null)
+            {
+                <p style="color:red">@ViewBag.Error</p>
+            }
+        </div>
+    </div>
+</body>
+</html>

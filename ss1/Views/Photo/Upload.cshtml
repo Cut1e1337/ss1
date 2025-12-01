@@ -1,0 +1,96 @@
+﻿<div class="container-upload">
+    <h2>Завантажити фото</h2>
+
+    <p class="upload-instruction">Виберіть фото (до 9 файлів)</p>
+
+    <form id="uploadForm" enctype="multipart/form-data">
+        <div class="file-input-wrapper" id="fileInputWrapper">
+            <input type="file" name="file" id="fileInput" accept="image/*" multiple />
+            <div class="file-input-label">+ Вибрати фото</div>
+        </div>
+
+        <!-- Контейнер для попереднього перегляду -->
+        <div id="previewContainer" class="preview-container"></div>
+
+        <br />
+        <button type="submit">Завантажити</button>
+    </form>
+
+    <div id="message"></div> <!-- Повідомлення буде тут -->
+
+    <button onclick="window.location.href='@Url.Action("AdminGallery", "Photo")'" class="btn btn-primary">
+        Перейти на наступну сторінку
+    </button>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+    // Обробка завантаження без перезавантаження сторінки
+    $('#uploadForm').submit(function (e) {
+        e.preventDefault(); // Запобігає стандартній поведінці форми (перехід на іншу сторінку)
+
+        var formData = new FormData(this); // Збирає дані форми
+
+        $.ajax({
+            url: '/Photo/Upload', // Адреса для обробки запиту
+            type: 'POST',
+            data: formData,
+            processData: false, // не обробляти дані
+            contentType: false, // не встановлювати заголовок Content-Type
+            success: function (response) {
+                // Вивести повідомлення про успіх чи помилку
+                $('#message').html(response.message).css('color', response.isError ? 'red' : 'green');
+            },
+            error: function () {
+                $('#message').html('Сталася помилка при завантаженні. Спробуйте ще раз!').css('color', 'red');
+            }
+        });
+    });
+
+    // Показати попередній перегляд вибраних фото
+    $('#fileInput').change(function (e) {
+        var files = e.target.files;
+        var previewContainer = $('#previewContainer');
+        var fileInputWrapper = $('#fileInputWrapper');
+        previewContainer.empty(); // Очищаємо попередній перегляд
+
+        if (files.length + previewContainer.children().length > 9) {
+            $('#message').html('Можна завантажити лише до 9 фото.').css('color', 'red');
+            return;
+        }
+
+        // Створення попереднього перегляду
+        Array.from(files).forEach(function (file, index) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                var imgElement = $('<img>')
+                    .attr('src', e.target.result)
+                    .addClass('preview-img');
+
+                // Для кожного фото: додаємо в контейнер під першим
+                previewContainer.append(imgElement);
+
+                // Після додавання фото, зміщуємо рамку для вибору фото вправо
+                var wrapperWidth = fileInputWrapper.width();
+                var currentLeft = parseInt(fileInputWrapper.css('left')) || 0;
+                if (currentLeft === 0) {
+                    // Якщо рамка ще не зсунута, зсуваємо вправо
+                    fileInputWrapper.css('left', '+=' + wrapperWidth + 'px');
+                }
+
+                // Після зсуву, додаємо кнопку для вибору фото
+                if (previewContainer.children().length < 9) {
+                    setTimeout(function () {
+                        fileInputWrapper.html('<input type="file" name="file" id="fileInput" accept="image/*" multiple /> <div class="file-input-label">+ Вибрати фото</div>');
+                    }, 300); // Затримка, щоб кнопка знову відображалась
+                }
+            };
+            reader.readAsDataURL(file);
+        });
+    });
+
+    // Зв'язування кнопки з input[type="file"]
+    $('#fileInputWrapper').click(function () {
+        $('#fileInput').click();
+    });
+</script>

@@ -1,0 +1,21 @@
+﻿<!-- Кнопка -->
+<button id="clickToCallBtn" class="call-button">
+    <img src="images/icons/ringer-volume-50_100x100.png" alt="Зв'язатися" class="button-icon" />
+</button>
+
+
+<!-- Вікно форми -->
+<div id="callWidget" class="call-widget hidden">
+    <div class="widget-header">
+        <h3>Маєте питання?</h3>
+        <span class="close">&times;</span>
+    </div>
+    <form id="contactForm">
+        <input type="text" id="name" name="name" placeholder="Ваше ім’я" required>
+        <input type="email" id="email" name="email" placeholder="Ваш Email" required>
+        <textarea id="message" name="message" placeholder="Ваше повідомлення... Максимум 750 символів" required maxlength="750"></textarea>
+        <div id="charCount">Залишилося <span id="remainingChars">750</span> символів</div>
+        <button type="submit">Надіслати</button>
+        <div id="formResult" style="margin-top:10px;"></div>
+    </form>
+</div>

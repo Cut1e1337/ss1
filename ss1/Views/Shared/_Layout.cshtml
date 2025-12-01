@@ -1,0 +1,51 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - ss1</title>
+    <link rel="icon" type="image/x-icon" href="~/images/icons/favicon.ico" />
+    @* <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" /> *@
+	@* <link rel="stylesheet" href="~/ss1.styles.css" asp-append-version="true" /> *@
+    <link rel="stylesheet" href="@Url.Content("~/css/site.css")" />
+    <link rel="stylesheet" href="@Url.Content("~/css/CallForm.css")" />
+    <link rel="stylesheet" href="@Url.Content("~/css/Benefits.css")" />
+    <link rel="stylesheet" href="@Url.Content("~/css/header.css")" />
+    <link rel="stylesheet" href="@Url.Content("~/css/ScrollToTop.css")" />
+    <link rel="stylesheet" href="@Url.Content("~/css/services.css")" />
+    <link rel="stylesheet" href="@Url.Content("~/css/portfolio.css")" />
+    <link rel="stylesheet" href="@Url.Content("~/css/testimonials.css")" />
+    <link rel="stylesheet" href="@Url.Content("~/css/contact.css")" />
+    <link rel="stylesheet" href="@Url.Content("~/css/about.css")" />
+    <link rel="stylesheet" href="@Url.Content("~/css/main-footer.css")" />
+    <link rel="stylesheet" href="@Url.Content("~/css/Upload-main.css")" />
+
+
+</head>
+<body>
+
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+@*     <button onclick="window.location.href='@Url.Action("Upload", "Photo")'" class="btn btn-primary">
+        Перейти на наступну сторінку
+    </button> *@
+
+
+
+
+
+
+
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    @* <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script> *@
+    <script src="~/js/site.js" asp-append-version="true"></script>
+	<script src="~/js/CallForm.js" asp-append-version="true"></script>
+    <script src="~/js/Upload-main.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

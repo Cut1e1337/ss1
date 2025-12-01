@@ -1,0 +1,191 @@
+﻿@{
+    Layout = null;
+    ViewData["Title"] = "Архів";
+}
+
+@model List<ss1.Models.PhotoSubmission>
+
+@{
+    var serviceNames = ViewBag.ServiceNames as Dictionary<string, string> ?? new();
+}
+
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8" />
+    <title>@ViewData["Title"]</title>
+    <link rel="icon" type="image/x-icon" href="~/images/icons/favicon.ico" />
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', sans-serif;
+            display: flex;
+            height: 100vh;
+            background-color: #f5f7fa;
+        }
+
+        .sidebar {
+            width: 240px;
+            background-color: #1e3a8a;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            padding: 20px;
+        }
+
+            .sidebar h2 {
+                font-size: 20px;
+                margin-bottom: 30px;
+            }
+
+        .nav-link {
+            display: block;
+            color: white;
+            text-decoration: none;
+            padding: 10px 15px;
+            margin-bottom: 10px;
+            border-radius: 8px;
+            transition: background 0.2s;
+        }
+
+            .nav-link:hover,
+            .nav-link.active {
+                background-color: #3b82f6;
+            }
+
+        .main {
+            flex-grow: 1;
+            padding: 30px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+            .top-bar h1 {
+                font-size: 24px;
+                margin: 0;
+            }
+
+        .avatar {
+            width: 40px;
+            height: 40px;
+            background-color: #ccc;
+            border-radius: 50%;
+        }
+
+        .cards-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            align-content: flex-start;
+        }
+
+        .card-container {
+            width: 300px;
+            background-color: white;
+            border: 1px solid #ccc;
+            padding: 10px;
+            border-radius: 8px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+        }
+
+            .card-container h3 {
+                margin-top: 0;
+            }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <h2>Адмін панель </h2>
+        <a href="/Admin/Dashboard" class="nav-link">📊 Статистика</a>
+        <a href="/Admin/Users" class="nav-link">👥 Користувачі</a>
+        <a href="/Admin/ReviewPhotos" class="nav-link">👥 Замовлення</a>
+        <a href="/Admin/Orders" class="nav-link">🛒 Канбандошка</a>
+        <a href="/Admin/Archive" class="nav-link">📁 Архів</a>
+        <a href="/Admin/Products" class="nav-link">📦 Продукти</a>
+        <a href="/Admin/Messages" class="nav-link">💬 Повідомлення</a>
+        <a href="/Admin/Settings" class="nav-link">⚙️ Налаштування</a>
+        <a href="/" class="nav-link">⏻ Вийти</a>
+    </div>
+
+    <div class="main">
+        <div class="top-bar">
+            <h1>@ViewData["Title"]</h1>
+            <div class="avatar"></div>
+        </div>
+
+        <div class="cards-container">
+            @foreach (var submission in Model)
+            {
+                var serviceType = submission.ServiceType;
+                var serviceName = !string.IsNullOrEmpty(serviceType) && serviceNames.ContainsKey(serviceType)
+                ? serviceNames[serviceType]
+                : "Невідома послуга";
+
+                <div class="card-container">
+                    <h3>Фото на перевірку №@submission.OrderNumber</h3>
+
+                    <p><strong>Файл:</strong> @submission.FileName</p>
+
+                    @if (submission.ImageData != null)
+                    {
+                        <p>
+                            <a asp-action="ViewPhoto" asp-route-id="@submission.Id"
+                               target="_blank"
+                               class="btn btn-sm"
+                               style="color: black; padding: 6px 12px; border-radius: 6px; text-decoration: none;">
+                                🔍 Переглянути фото
+                            </a>
+                        </p>
+                        <p>
+                            <a asp-action="DownloadPhoto" asp-route-id="@submission.Id"
+                               target="_blank"
+                               class="btn btn-sm btn-primary"
+                               style="color: black; padding: 6px 12px; border-radius: 6px; text-decoration: none;">
+                                📥 Завантажити фото
+                            </a>
+                        </p>
+                    }
+
+                    @if (submission.ProcessedImageData != null)
+                    {
+                        <p>
+                            <a asp-action="DownloadProcessedPhoto" asp-route-id="@submission.Id"
+                               target="_blank"
+                               class="btn btn-sm btn-primary"
+                               style="color: black; padding: 6px 12px; border-radius: 6px; text-decoration: none;">
+                                🖼️ Завантажити оброблене фото
+                            </a>
+                        </p>
+                        <p>
+                            <a asp-action="ViewProcessedPhoto" asp-route-id="@submission.Id"
+                               target="_blank"
+                               class="btn btn-sm"
+                               style="color: black; padding: 6px 12px; border-radius: 6px; text-decoration: none;">
+                                👁️ Переглянути оброблене фото
+                            </a>
+                        </p>
+                    }
+
+                    <p><strong>Послуга:</strong> @serviceName</p>
+                    <p><strong>Коментар:</strong> @submission.Comment</p>
+                    <p><strong>Ціна:</strong> @submission.Price грн</p>
+                    <p><strong>Від:</strong> @submission.UserEmail</p>
+                    <p><strong>Дата:</strong> @submission.UploadedAt.ToLocalTime().ToString("g")</p>
+                    @if (!string.IsNullOrEmpty(submission.ProcessedBy))
+                    {
+                        <p><strong>Оброблено:</strong> @submission.ProcessedBy</p>
+                    }
+                </div>
+            }
+        </div>
+    </div>
+</body>
+</html>

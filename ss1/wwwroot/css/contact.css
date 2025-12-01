@@ -1,0 +1,202 @@
+﻿
+/* .info-icon {
+    width: 40px;
+    height: 40px;
+    background: var(--secondary-color);
+    border-radius: 50%;
+    flex-shrink: 0;
+} */
+
+
+/*.container-contact {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+}
+
+.info-icon {
+    width: 50px;
+    height: 50px;*/
+    /* margin: 0 auto 1.5rem; */
+    /* background: var(--secondary-color); */
+    /*border-radius: 50%;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.form-group {
+    position: relative;
+    margin-bottom: 1.5rem;
+}
+
+    .form-group input,
+    .form-group textarea {
+        width: 100%;
+        padding: 1rem;
+        border: 1px solid #ddd;
+        border-radius: var(--border-radius);
+        background: transparent;
+        transition: var(--transition);
+    }
+
+    .form-group label {
+        position: absolute;
+        left: 1rem;
+        top: 1rem;
+        pointer-events: none;
+        transition: var(--transition);
+        color: var(--text-light);
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus {
+        border-color: var(--secondary-color);
+        outline: none;
+    }
+
+        .form-group input:focus + label,
+        .form-group textarea:focus + label,
+        .form-group input:not(:placeholder-shown) + label,
+        .form-group textarea:not(:placeholder-shown) + label {
+            top: -0.5rem;
+            left: 0.5rem;
+            font-size: 0.8rem;
+            background: white;
+            padding: 0 0.5rem;
+            color: var(--secondary-color);
+        }
+
+.submit-button {
+    width: 100%;
+    padding: 1rem;
+    background: var(--secondary-color);
+    color: white;
+    border: none;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    transition: var(--transition);
+    position: relative;
+}
+
+    .submit-button:hover {
+        background: var(--primary-color);
+    }*/
+
+
+/* 🔒 Контактна форма — ізольовано і адаптовано до глобальних стилів */
+
+.contact-545 {
+    padding: 5rem 0;
+    background-color: var(--background-light);
+}
+
+.container-contact-545 {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+}
+
+.contact-grid-545 {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 2.5rem;
+}
+
+.contact-info-545 h3 {
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.info-list-545 {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.info-item-545 {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
+
+.info-icon-545 {
+    width: 50px;
+    height: 50px;
+    flex-shrink: 0;
+}
+
+    .info-icon-545 img {
+        width: 100%;
+        height: auto;
+    }
+
+.contact-form-545 {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.form-group-545 {
+    position: relative;
+}
+
+    .form-group-545 input,
+    .form-group-545 textarea {
+        width: 100%;
+        padding: 1rem;
+        border: 1px solid #ddd;
+        border-radius: var(--border-radius);
+        background: white;
+        transition: var(--transition);
+        font-family: inherit;
+        font-size: 1rem;
+        color: var(--text-color);
+    }
+
+    .form-group-545 label {
+        position: absolute;
+        left: 1rem;
+        top: 1rem;
+        background: white;
+        padding: 0 0.4rem;
+        color: var(--text-light);
+        pointer-events: none;
+        transition: var(--transition);
+    }
+
+    .form-group-545 input:focus + label,
+    .form-group-545 textarea:focus + label,
+    .form-group-545 input:not(:placeholder-shown) + label,
+    .form-group-545 textarea:not(:placeholder-shown) + label {
+        top: -0.6rem;
+        left: 0.8rem;
+        font-size: 0.75rem;
+        color: var(--secondary-color);
+    }
+
+.submit-button-545 {
+    padding: 1rem;
+    background-color: var(--secondary-color);
+    color: white;
+    border: none;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    font-size: 1rem;
+    transition: var(--transition);
+}
+
+    .submit-button-545:hover {
+        background-color: var(--primary-color);
+    }
+
+/* Адаптив */
+@media (max-width: 768px) {
+    .contact-grid-545 {
+        grid-template-columns: 1fr;
+    }
+}

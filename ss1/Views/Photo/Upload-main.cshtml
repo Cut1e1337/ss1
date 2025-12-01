@@ -1,0 +1,22 @@
+﻿@* <h2>Завантажити фото</h2>
+
+<form id="uploadForm" enctype="multipart/form-data">
+    <div class="upload-container">
+        <div class="photo-box" id="photoBox1">
+            <input type="file" name="files" accept="image/*" id="fileInput1" onchange="handleFileChange(event, 1)" />
+            <div class="add-icon">+</div>
+        </div>
+    </div>
+
+    <div class="checkbox-container">
+        <label>
+            <input type="checkbox" name="acceptTerms" onchange="toggleSubmitButton()" /> Я погоджуюсь з умовами використання
+        </label>
+    </div>
+
+    <button type="button" id="submitBtn" disabled onclick="submitForm()">Завантажити</button>
+</form>
+
+<div id="errorMessage" style="color: red;"></div>
+<div id="successMessage" style="color: green;"></div>
+ *@

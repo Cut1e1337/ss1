@@ -1,0 +1,121 @@
+﻿body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background-color: #fca2a2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    overflow: hidden; /* 🔒 Заборона прокрутки */
+}
+
+.container-login {
+    background-color: white;
+    border: 4px solid #fca2a2;
+    border-radius: 20px;
+    padding: 40px;
+    width: 90%;
+    max-width: 400px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    box-sizing: border-box;
+    transform: scale(1.1); /* 📏 Робить форму трохи більшою */
+}
+
+h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 1.8rem;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+label {
+    font-weight: bold;
+    font-size: 14px;
+}
+
+input[type="email"],
+input[type="password"] {
+    padding: 12px;
+    font-size: 16px;
+    border: none;
+    border-bottom: 1px solid #999;
+    background-color: transparent;
+    outline: none;
+    width: 100%;
+}
+
+input::placeholder {
+    color: #aaa;
+}
+
+.remember-label {
+    font-weight: normal;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: -5px;
+}
+
+button[type="submit"] {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 16px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease;
+}
+
+    button[type="submit"]:hover {
+        background-color: #0056b3;
+    }
+
+.text-center {
+    text-align: center;
+    margin-top: 20px;
+}
+
+    .text-center a {
+        color: #007bff;
+        text-decoration: none;
+    }
+
+        .text-center a:hover {
+            text-decoration: underline;
+        }
+
+.message {
+    margin-top: 15px;
+    text-align: center;
+    font-size: 0.95rem;
+}
+
+    .message p {
+        margin: 0;
+    }
+
+/* 📱 Мобільна адаптація */
+@media (max-width: 480px) {
+    .container-login {
+        padding: 30px 20px;
+        transform: scale(0.8); /* ⬆ робимо візуально більшим на мобільному */
+    }
+
+    h2 {
+        font-size: 1.6rem;
+    }
+
+    button[type="submit"] {
+        font-size: 15px;
+        padding: 10px;
+    }
+}

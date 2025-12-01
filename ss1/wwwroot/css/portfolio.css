@@ -1,0 +1,153 @@
+﻿.container-portfolio {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+}
+
+.portfolio {
+    padding: 5rem 0;
+}
+
+.portfolio-filters {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 3rem;
+}
+
+.filter-btn {
+    padding: 0.5rem 1.5rem;
+    border: none;
+    background: none;
+    cursor: pointer;
+    font-weight: 500;
+    transition: var(--transition);
+    position: relative;
+}
+
+    .filter-btn::after {
+        content: '';
+        position: absolute;
+        bottom: -2px;
+        left: 0;
+        width: 0;
+        height: 2px;
+        background: var(--secondary-color);
+        transition: var(--transition);
+    }
+
+    .filter-btn.active::after,
+    .filter-btn:hover::after {
+        width: 100%;
+    }
+
+.portfolio-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5rem;
+}
+
+.portfolio-item {
+    position: relative;
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    background: white;
+    box-shadow: var(--box-shadow);
+    transition: var(--transition);
+}
+
+.portfolio-image {
+    width: 100%;
+    display: block;
+}
+
+    .portfolio-image img {
+        width: 100%;
+        height: auto; /* 👈 ключ до пропорційності */
+        display: block;
+        transition: var(--transition);
+    }
+
+.portfolio-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: var(--transition);
+    color: white;
+    text-align: center;
+    padding: 1.5rem;
+}
+
+.portfolio-item:hover .portfolio-overlay {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.portfolio-item:hover img {
+    transform: scale(1.05);
+}
+
+.portfolio-link {
+    color: white;
+    text-decoration: none;
+    border: 2px solid white;
+    padding: 0.5rem 1.5rem;
+    margin-top: 1rem;
+    border-radius: var(--border-radius);
+    transition: var(--transition);
+}
+
+    .portfolio-link:hover {
+        background: white;
+        color: var(--primary-color);
+    }
+
+/* Стилі для фото */
+.portfolio-image img {
+    width: 100%;
+    height: auto;
+    display: block;
+    transition: var(--transition);
+    border-radius: var(--border-radius);
+}
+
+/* Мобільні пристрої */
+@media (max-width: 768px) {
+    .portfolio-grid {
+        grid-template-columns: 1fr;
+        justify-items: center; /* Центруємо блоки */
+    }
+
+    .portfolio-item {
+        width: 70%; /* ❗️Тут ми зменшуємо ширину блоку */
+        max-width: 400px; /* Можеш змінити ліміт */
+    }
+
+    .portfolio-image img {
+        width: 100%; /* Пропорційне масштабування */
+        height: auto;
+    }
+}
+
+/* 💻 Планшети */
+@media (min-width: 769px) and (max-width: 1199px) {
+    .portfolio-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* 🖥 Десктопи */
+@media (min-width: 1200px) {
+    .portfolio-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}

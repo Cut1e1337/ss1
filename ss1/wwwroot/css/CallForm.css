@@ -1,0 +1,258 @@
+﻿/* Кнопка */
+.call-button {
+    position: fixed;
+    bottom: 25px;
+    right: 25px;
+    z-index: 1000;
+    background: linear-gradient(135deg, #ce0000, #b80000); /* Градієнт для кнопки */
+    border: none;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+    transition: background 0.3s ease;
+}
+
+    /* Кнопка з іконкою */
+    .call-button .button-icon {
+        width: 40px;
+        height: 40px;
+        object-fit: contain;
+    }
+
+/* Віконце форми */
+.call-widget {
+    position: fixed;
+    bottom: 25px;
+    right: 25px;
+    width: 320px;
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    z-index: 1001;
+    animation: fadeInUp 0.4s ease;
+    overflow: hidden;
+    max-height: 90vh; /* Максимальна висота вікна */
+    max-width: 90vw; /* Максимальна ширина вікна */
+    overflow-y: auto; /* Дозволяє прокручувати вікно */
+}
+
+/* Анімація */
+@keyframes fadeInUp {
+    from {
+        transform: translateY(20px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+/* Заголовок */
+.widget-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+    .widget-header h3 {
+        margin: 0;
+        font-size: 18px;
+        color: #2d3436;
+    }
+
+.close {
+    font-size: 24px;
+    cursor: pointer;
+    color: #b2bec3;
+    transition: color 0.2s;
+}
+
+    .close:hover {
+        color: #d63031;
+    }
+
+/* Поля вводу */
+form input,
+form textarea {
+    width: 100%;
+    margin-top: 8px;
+    padding: 10px 12px;
+    border: 1px solid #dfe6e9;
+    border-radius: 6px;
+    box-sizing: border-box;
+    font-size: 14px;
+    resize: vertical;
+    transition: border-color 0.3s;
+}
+
+    form input:focus,
+    form textarea:focus {
+        border-color: #ce0000;
+        outline: none;
+    }
+
+/* Максимальна висота для текстового поля */
+form textarea {
+    max-height: 300px;
+}
+
+/* Кнопка форми */
+form button {
+    margin-top: 12px;
+    width: 100%;
+    padding: 10px;
+    background-color: #ce0000;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 15px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+    form button:hover {
+        background-color: #980101;
+    }
+
+/* Повідомлення про кількість символів */
+#charCount {
+    margin-top: 10px;
+    font-size: 14px;
+    color: #636e72; /* Легкий колір, щоб не було занадто яскраво */
+}
+
+/* Сховати вікно по замовчуванню */
+.call-widget.hidden {
+    display: none;
+}
+
+/* Стилі для водяного знака (watermark) */
+textarea::placeholder {
+    color: #b2bec3; /* Світлий колір для водяного знака */
+    opacity: 0.7; /* Легкий прозорий ефект */
+}
+
+/* Повідомлення про ліміт (видається після 500 символів) */
+textarea.exceed-limit::placeholder {
+    color: #e74c3c;
+    opacity: 0.6; /* Легкий ефект для попередження */
+}
+
+/* Лічильник символів */
+#remainingChars {
+    font-weight: bold;
+}
+
+/* 📱 Адаптивність для кнопки та вікна */
+@media (max-width: 480px) {
+    .call-button {
+        width: 45px;
+        height: 45px;
+        bottom: 15px;
+        right: 15px;
+    }
+
+        .call-button .button-icon {
+            width: 24px;
+            height: 24px;
+        }
+
+    .call-widget {
+        width: 90vw;
+        padding: 15px;
+        font-size: 14px;
+        bottom: 15px;
+        right: 15px;
+    }
+
+    .widget-header h3 {
+        font-size: 16px;
+    }
+
+    form button {
+        font-size: 14px;
+    }
+}
+
+@media (min-width: 481px) and (max-width: 768px) {
+    .call-button {
+        width: 50px;
+        height: 50px;
+        bottom: 20px;
+        right: 20px;
+    }
+
+        .call-button .button-icon {
+            width: 28px;
+            height: 28px;
+        }
+
+    .call-widget {
+        width: 85vw;
+        padding: 18px;
+        bottom: 20px;
+        right: 20px;
+    }
+
+    .widget-header h3 {
+        font-size: 17px;
+    }
+}
+
+@media (min-width: 769px) and (max-width: 1200px) {
+    .call-button {
+        width: 60px;
+        height: 60px;
+        bottom: 25px;
+        right: 25px;
+    }
+
+        .call-button .button-icon {
+            width: 32px;
+            height: 32px;
+        }
+
+    .call-widget {
+        width: 320px;
+        bottom: 25px;
+        right: 25px;
+    }
+}
+
+@media (min-width: 1201px) {
+    .call-button {
+        width: 70px;
+        height: 70px;
+        bottom: 30px;
+        right: 30px;
+    }
+
+        .call-button .button-icon {
+            width: 36px;
+            height: 36px;
+        }
+
+    .call-widget {
+        width: 360px;
+        bottom: 30px;
+        right: 30px;
+    }
+
+    .widget-header h3 {
+        font-size: 20px;
+    }
+
+    form button {
+        font-size: 16px;
+    }
+}
+

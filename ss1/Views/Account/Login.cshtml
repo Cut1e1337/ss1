@@ -1,0 +1,54 @@
+﻿@{
+    Layout = null;
+    ViewData["Title"] = "Вхід";
+}
+
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <title>Вхід</title>
+    <link rel="stylesheet" href="~/css/Login.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+    <div class="container-login">
+        <h2>Вхід</h2>
+
+        <form method="post" asp-action="Login">
+            <label for="email">Email:</label>
+            <input type="email" name="email" id="email" placeholder="example@email.com" required />
+
+            <label for="password">Пароль:</label>
+            <input type="password" name="password" id="password" placeholder="Ваш пароль" required />
+
+            <label class="remember-label">
+                <input type="checkbox" name="rememberMe" />
+                Запам’ятати мене
+            </label>
+
+            <button type="submit">Увійти</button>
+        </form>
+
+        <div class="text-center">
+            <p>Ще не маєте акаунта? <a asp-controller="Account" asp-action="Register">Зареєструватися</a></p>
+        </div>
+
+        <div class="message">
+            @if (ViewBag.Error != null)
+            {
+                <p style="color:red">@ViewBag.Error</p>
+            }
+            @if (ViewBag.ResendLink != null)
+            {
+                <p><a href="@ViewBag.ResendLink">Пройти верифікацію заново</a></p>
+            }
+
+            @if (ViewBag.Message != null)
+            {
+                <p style="color:green">@ViewBag.Message</p>
+            }
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,56 @@
+﻿@model List<ss1.Models.PhotoSubmission>
+@using ss1.Models
+
+@if (Model.Any())
+{
+    <div class="card upload-card" id="active-orders">
+        <h3>🕓 Активні замовлення</h3>
+
+        @foreach (var order in Model)
+        {
+            var statusText = order.Status switch
+            {
+                SubmissionStatus.Pending => "Очікується",
+                SubmissionStatus.InProgress => "В процесі",
+                SubmissionStatus.Completed => "Завершено",
+                _ => "Невідомий статус"
+            };
+
+            <p>Замовлення №@order.OrderNumber має статус: <strong>@statusText</strong></p>
+        }
+
+        <div class="pagination-container">
+            @{
+                int currentPage = ViewBag.CurrentPage;
+                int totalPages = ViewBag.TotalPages;
+
+                if (totalPages > 1)
+                {
+                    <div class="pagination">
+                        <!-- Ліва межа -->
+                        <a href="javascript:void(0);" onclick="loadPage(1)" class="arrow @(currentPage == 1 ? "disabled" : "")">«</a>
+                        <a href="javascript:void(0);" onclick="loadPage(@(currentPage - 1))" class="arrow @(currentPage == 1 ? "disabled" : "")">‹</a>
+
+                        <!-- Номери -->
+                        @for (int i = 1; i <= totalPages; i++)
+                        {
+                            if (i == currentPage)
+                            {
+                                <span class="page active">@i</span>
+                            }
+                            else
+                            {
+                                <a href="javascript:void(0);" onclick="loadPage(@i)" class="page">@i</a>
+                            }
+                        }
+
+                        <!-- Права межа -->
+                        <a href="javascript:void(0);" onclick="loadPage(@(currentPage + 1))" class="arrow @(currentPage == totalPages ? "disabled" : "")">›</a>
+                        <a href="javascript:void(0);" onclick="loadPage(@totalPages)" class="arrow @(currentPage == totalPages ? "disabled" : "")">»</a>
+                    </div>
+                }
+            }
+        </div>
+
+    </div>
+}

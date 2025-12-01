@@ -1,0 +1,83 @@
+﻿.containerbenefits {
+    max-width: 55%;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+}
+
+.benefits {
+    margin-top: 100px;
+    padding: 5rem 0;
+    background: white;
+}
+
+.benefits-grid {
+    display: grid;
+    gap: 2rem;
+}
+
+/* 🧩 Картка */
+.benefit-card {
+    text-align: center;
+    padding: 2rem;
+    background: white;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    transition: var(--transition);
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+    .benefit-card:hover {
+        transform: translateY(-5px);
+    }
+
+.benefit-icon {
+    width: 60px;
+    height: 60px;
+    margin: 0 auto 1.5rem;
+    border-radius: 0%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* 📱 Мобільні пристрої: по 1 картці в ряд і зменшення розміру */
+@media (max-width: 768px) {
+    .benefits-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .containerbenefits {
+        max-width: 95%;
+    }
+
+    .benefit-card {
+        padding: 1.5rem;
+        max-width: 90%;
+    }
+
+    .benefit-icon {
+        width: 50px;
+        height: 50px;
+        margin-bottom: 1rem;
+    }
+
+    .benefit-card h3 {
+        font-size: 1.2rem;
+    }
+
+    .benefit-card p {
+        font-size: 0.95rem;
+    }
+}
+
+/* 💻 Планшети і вище: по 3 картки в ряд */
+@media (min-width: 769px) {
+    .benefits-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .containerbenefits {
+        max-width: 1100px;
+    }
+}

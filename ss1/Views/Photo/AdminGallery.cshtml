@@ -1,0 +1,34 @@
+﻿@model IEnumerable<ss1.Models.Photo>
+
+@{
+    ViewBag.Title = "Галерея фото (Адмін)";
+}
+
+<h2>Галерея фото</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Назва файлу</th>
+            <th>Дата завантаження</th>
+            <th>Дії</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.FileName</td>
+                <td>@item.UploadDate.ToString("dd.MM.yyyy HH:mm")</td>
+                <td>
+                    <a asp-action="Download" asp-route-id="@item.Id" class="btn btn-primary">Скачати</a>
+                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger" onclick="return confirm('Ви впевнені, що хочете видалити це фото?');">Видалити</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<button onclick="window.location.href='@Url.Action("Upload", "Photo")'" class="btn btn-primary">
+    Перейти на наступну сторінку
+</button>

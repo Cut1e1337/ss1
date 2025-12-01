@@ -1,0 +1,391 @@
+﻿
+body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background-color: #f4f6f9;
+}
+
+.container {
+    max-width: 800px;
+    margin: 60px auto;
+    padding: 0 20px;
+}
+
+h2, h3 {
+    text-align: left;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.card {
+    background-color: white;
+    border-radius: 12px;
+    padding: 30px;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.avatar {
+    width: 80px;
+    height: 80px;
+    background-color: #d9d9d9;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 36px;
+    color: #666;
+}
+
+.upload-card {
+    background-color: #e6f4ea;
+    border: 1px solid #c1e1c1;
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+
+
+/*Пагінатор*/
+
+.pagination-container {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.pagination {
+    display: inline-block;
+}
+
+    .pagination a,
+    .pagination span {
+        display: inline-block;
+        padding: 8px 12px;
+        margin: 0 3px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        text-decoration: none;
+        color: #1e3a8a;
+        font-weight: 500;
+    }
+
+    .pagination .active {
+        background-color: #1e3a8a;
+        color: white;
+        font-weight: bold;
+        border: 1px solid #1e3a8a;
+    }
+
+    .pagination .arrow {
+        font-weight: bold;
+    }
+
+
+/*Пагінатор*/
+
+.user-data p {
+    margin: 5px 0;
+    color: #444;
+}
+
+    .user-data p span {
+        font-weight: bold;
+    }
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.form-group {
+    position: relative;
+    margin-top: 5px;
+}
+
+    .form-group input {
+        width: 100%;
+        padding: 12px 10px 12px 10px;
+        font-size: 16px;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+        background: none;
+        outline: none;
+    }
+
+    .form-group label {
+        position: absolute;
+        top: 50%;
+        left: 12px;
+        transform: translateY(-50%);
+        background-color: white;
+        padding: 0 4px;
+        color: #777;
+        font-size: 14px;
+        pointer-events: none;
+        transition: 0.2s ease;
+    }
+
+    .form-group input:focus + label,
+    .form-group input:not(:placeholder-shown) + label {
+        top: -8px;
+        left: 10px;
+        font-size: 12px;
+        color: #007bff;
+    }
+
+button {
+    background-color: #007bff;
+    color: white;
+    padding: 12px;
+    font-size: 16px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    width: 100%;
+}
+
+    button:hover {
+        background-color: #0056b3;
+    }
+
+/*         .nav-link {
+            display: block;
+            color: white;
+            text-decoration: none;
+            padding: 10px 15px;
+            margin-bottom: 10px;
+            border-radius: 8px;
+            transition: background 0.2s;
+        } */
+
+.button-a {
+    background-color: #007bff;
+    text-decoration: none;
+    position: center;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    color: white;
+    padding: 12px;
+    font-size: 16px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    width: 100%;
+}
+
+    .button-a:hover {
+        background-color: #0056b3;
+    }
+
+.logout-form {
+    text-align: center;
+}
+
+    .logout-form button {
+        background-color: transparent;
+        color: #dc3545;
+        border: 1px solid #dc3545;
+    }
+
+        .logout-form button:hover {
+            background-color: #dc3545;
+            color: white;
+        }
+
+.message {
+    margin-top: 10px;
+    text-align: center;
+    color: green;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+    display: flex;
+    flex-direction: column;
+}
+
+    .form-group label {
+        margin-bottom: 0.5rem;
+        font-weight: 500;
+        color: #333;
+    }
+
+    .form-group select,
+    .form-group textarea {
+        padding: 0.75rem 1rem;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        font-size: 1rem;
+        font-family: inherit;
+        background-color: #fff;
+        transition: border-color 0.2s;
+    }
+
+        .form-group select:focus,
+        .form-group textarea:focus {
+            border-color: #1e40af;
+            outline: none;
+        }
+
+    .form-group textarea {
+        resize: vertical;
+        min-height: 100px;
+    }
+
+/* Інформація про мене */
+
+.form-group2 {
+    position: relative;
+    margin-top: 5px;
+}
+
+    .form-group2 input {
+        width: 100%;
+        padding: 12px 10px 12px 10px;
+        font-size: 16px;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+        background: none;
+        outline: none;
+    }
+
+    .form-group2 label {
+        position: absolute;
+        top: 50%;
+        left: 12px;
+        transform: translateY(-50%);
+        background-color: white;
+        padding: 0 4px;
+        color: #777;
+        font-size: 14px;
+        pointer-events: none;
+        transition: 0.2s ease;
+    }
+
+    .form-group2 input:focus + label,
+    .form-group2 input:not(:placeholder-shown) + label {
+        top: -8px;
+        left: 10px;
+        font-size: 12px;
+        color: #007bff;
+    }
+
+/* Інформація про мене */
+
+
+
+/* Ціна */
+
+.price-row {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 8px;
+}
+
+    .price-row label {
+        margin: 0;
+        font-weight: 500;
+    }
+
+.price-value {
+    font-weight: bold;
+}
+
+/* Ціна */
+
+
+
+/* 📱 Мобільна адаптація з масштабом */
+@media (max-width: 768px) {
+    body {
+        
+    }
+
+    .container {
+        margin: 30px auto;
+        padding: 0 15px;
+        max-width: 95%;
+        transform: scale(0.8); /* 🔍 Збільшення всього блоку */
+        transform-origin: top center;
+    }
+
+    .card {
+        padding: 20px;
+        margin-top: 20px;
+        margin-bottom: 20px;
+    }
+
+    h2, h3 {
+        font-size: 1.4rem;
+        text-align: center;
+    }
+
+    .user-info {
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .avatar {
+        width: 70px;
+        height: 70px;
+        font-size: 28px;
+    }
+
+    .form-group,
+    .form-group2 {
+        gap: 10px;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="password"],
+    select,
+    textarea {
+        font-size: 1rem;
+        padding: 10px;
+    }
+
+    .form-group label,
+    .form-group2 label {
+        font-size: 0.95rem;
+    }
+
+    button,
+    .button-a {
+        font-size: 1rem;
+        padding: 10px;
+    }
+
+    .price-row {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+        .price-row label {
+            font-size: 0.95rem;
+        }
+
+    .logout-form button {
+        width: 100%;
+        padding: 10px;
+    }
+
+    .message {
+        font-size: 0.95rem;
+    }
+}
+
+

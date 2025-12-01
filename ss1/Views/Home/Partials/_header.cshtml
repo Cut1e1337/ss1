@@ -1,0 +1,47 @@
+﻿<header class="main-header">
+	<nav class="navbar" id="navbar">
+		<div class="container52">
+			<div class="logo">
+				<img src="/images/icons/logo2.png" alt="ФотоВідеоПро логотип" class="logo-img">
+				<span class="logo-text">Pixelora</span>
+			</div>
+			<div class="burger" id="burger">
+				<span></span>
+				<span></span>
+				<span></span>
+			</div>
+
+			<ul class="nav-links">
+				<li><a href="#services" class="nav-link">Послуги</a></li>
+				<li><a href="#portfolio" class="nav-link">Портфоліо</a></li>
+				<li><a href="#about" class="nav-link">Про нас</a></li>
+				<li><a href="#testimonials" class="nav-link">Відгуки</a></li>
+				@* <li><a href="#contact" class="nav-link">Контакти</a></li> *@
+				@if (User.Identity.IsAuthenticated)
+				{
+					<a class="nav-link" asp-controller="Profile" asp-action="Index"> 👨‍💼 Особистий кабінет</a>
+				}
+				else
+				{
+					<a class="nav-link" asp-controller="Account" asp-action="Login"> 🔐 Увійти</a>
+				}
+
+			</ul>
+		</div>
+	</nav>
+
+
+
+	<div class="hero">
+		<img src="images/StockPhoto/1_bigforest.jpg" alt="forest image" class="hero-image" style="pointer-events: none;">
+
+		<div class="hero-content">
+			<h1 class="animate-on-scroll">Створюємо візуальні історії,<br>що захоплюють</h1>
+			<p class="animate-on-scroll delay-1">Професійна фото та відео реклама для вашого бізнесу</p>
+			<div class="hero-buttons animate-on-scroll delay-2">
+				<a href="#portfolio" class="cta-button">Наші роботи</a>
+				<a href="javascript:void(0);" class="cta-button outline" onclick="handleOrderClick()">Замовити обробку</a>
+			</div>
+		</div>
+	</div>
+</header>

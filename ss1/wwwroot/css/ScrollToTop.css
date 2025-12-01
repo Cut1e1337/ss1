@@ -1,0 +1,101 @@
+﻿/* Стрілка для прокрутки вгору  */
+
+/*.scroll-to-top {
+    position: fixed;
+    bottom: 20px;
+    right: 96%;
+    width: 50px;
+    height: 50px;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    display: none;
+    z-index: 1000;
+}
+
+    .scroll-to-top .arrow-icon {
+        width: 40px;
+        height: auto;
+    }
+
+    .scroll-to-top:hover .arrow-icon {
+        opacity: 0.8;
+    }*/
+
+/* Стрілка для прокрутки вгору  */
+
+.scroll-to-top {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    width: 50px;
+    height: 50px;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    display: none; /* Покажеш через JS, коли треба */
+    z-index: 1000;
+    padding: 0;
+}
+
+    .scroll-to-top .arrow-icon {
+        width: 40px;
+        height: auto;
+        transition: opacity 0.3s ease;
+    }
+
+    .scroll-to-top:hover .arrow-icon {
+        opacity: 0.8;
+    }
+
+@media (max-width: 480px) {
+    .scroll-to-top {
+        bottom: 15px;
+        left: 15px;
+        width: 40px;
+        height: 40px;
+    }
+
+        .scroll-to-top .arrow-icon {
+            width: 28px;
+        }
+}
+
+@media (min-width: 481px) and (max-width: 768px) {
+    .scroll-to-top {
+        bottom: 20px;
+        left: 20px;
+        width: 45px;
+        height: 45px;
+    }
+
+        .scroll-to-top .arrow-icon {
+            width: 32px;
+        }
+}
+
+@media (min-width: 769px) and (max-width: 1200px) {
+    .scroll-to-top {
+        bottom: 25px;
+        left: 25px;
+        width: 50px;
+        height: 50px;
+    }
+
+        .scroll-to-top .arrow-icon {
+            width: 36px;
+        }
+}
+
+@media (min-width: 1201px) {
+    .scroll-to-top {
+        bottom: 30px;
+        left: 30px;
+        width: 60px;
+        height: 60px;
+    }
+
+        .scroll-to-top .arrow-icon {
+            width: 42px;
+        }
+}

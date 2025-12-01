@@ -1,0 +1,77 @@
+﻿## ===============================
+## 📦 Visual Studio & ASP.NET Core
+## ===============================
+
+# VS налаштування та тимчасові файли
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Build результати
+bin/
+obj/
+[Bb]uild/
+[Ll]ogs/
+*.log
+*.tlog
+*.tmp
+
+# ASP.NET Core
+project.lock.json
+project.fragment.lock.json
+ScaffoldingReadMe.txt
+app.publish/
+publish/
+
+# EF міграції (опціонально — якщо міграції в коді, залишити!)
+Migrations/
+
+# NuGet
+*.nupkg
+*.snupkg
+.nuget/
+packages/
+project.assets.json
+project.nuget.cache
+*.nuspec
+
+# Rider
+.idea/
+*.sln.iml
+
+# Debug та кеш
+*.pdb
+*.dbmdl
+*.cache
+*.jfm
+*.ilk
+*.svclog
+*.sdf
+*.opensdf
+*.VC.db
+*.VC.VC.opendb
+
+# Resharper
+_ReSharper*/
+*.[Rr]e[Ss]harper
+
+# Інші системні та тимчасові файли
+*.bak
+*.backup.json
+*~
+*.rsuser
+
+# Azure
+ServiceDefinition.csdef
+ServiceConfiguration.*.cscfg
+*.azurePubxml
+*.azurePubxml.user
+
+# macOS
+.DS_Store
+
+# Windows
+Thumbs.db
+ehthumbs.db

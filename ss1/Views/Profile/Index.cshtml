@@ -1,0 +1,227 @@
+﻿@model AppUser
+
+@{
+    Layout = null;
+    ViewData["Title"] = "Профіль";
+}
+
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <title>Профіль</title>
+    <link rel="stylesheet" href="~/css/ProfileUser.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        .avatar-wrapper {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            overflow: hidden;
+            cursor: pointer;
+            border: 3px solid #2563eb;
+            transition: transform 0.3s ease;
+            margin-right: 20px;
+        }
+
+        .avatar-wrapper:hover {
+            transform: scale(1.05);
+        }
+
+        .avatar-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+    </style>
+</head>
+<body>
+<a href="/" style="
+        position: absolute;
+        top: 20px;
+        left: 20px;
+        background-color: #2563eb;
+        color: white;
+        padding: 10px 16px;
+        text-decoration: none;
+        border-radius: 8px;
+        font-size: 14px;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        transition: background 0.2s;">
+    На головну
+</a>
+
+<div class="container">
+    <div class="card">
+        <h2>Мій профіль</h2>
+        <div class="user-info">
+            <form method="post" enctype="multipart/form-data" asp-action="UploadAvatar" asp-controller="Profile">
+                <div class="avatar-wrapper" onclick="document.getElementById('avatarInput').click()" title="Змінити аватар">
+                    <img src="@(Model.AvatarImage != null ? $"data:image/png;base64,{Convert.ToBase64String(Model.AvatarImage)}" : "/img/default-avatar.png")" alt="Аватар" class="avatar-img" />
+                    <input type="file" name="avatar" id="avatarInput" accept="image/*" onchange="this.form.submit()" style="display:none" />
+                </div>
+            </form>
+            <div class="user-data">
+                <p><span>Email:</span> @Model.Email</p>
+                <p><span>Роль:</span> @Model.Role</p>
+                <p><span>Зареєстровано:</span> @Model.RegisteredAt.ToString("dd.MM.yyyy HH:mm")</p>
+            </div>
+        </div>
+    </div>
+
+    @if (User.IsInRole("Admin"))
+    {
+        <a class="button-a" href="/Admin/Dashboard" class="nav-link">Перейти в адмін-панель</a>
+    }
+
+    @if (!User.IsInRole("Admin"))
+    {
+        <div class="card">
+            <h3>Надіслати фото на Обробку</h3>
+            <form method="post" asp-controller="Profile" asp-action="UploadPhoto" enctype="multipart/form-data">
+                <div class="form-group">
+                    <select id="serviceType" name="serviceType" required onchange="updatePrice()">
+                        <option value="" disabled selected hidden>Виберіть послугу</option>
+                        <option value="background-removal">Видалення фону</option>
+                        <option value="color-correction">Корекція кольору</option>
+                        <option value="retouch">Ретуш</option>
+                        <option value="convert-bw">Чорно-біле зображення</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="comment"></label>
+                    <textarea id="comment" name="comment" rows="3" maxlength="250" placeholder="Напишіть побажання або уточнення..."></textarea>
+                </div>
+
+                <div class="form-group">
+                    <input type="file" id="photoFile" name="photoFile" accept="image/*" multiple required onchange="previewMultipleImages(event)" />
+                    <label for="photoFile">Оберіть фото (макс. 9)</label>
+                    <div id="previewContainer" style="margin-top: 10px; display: flex; flex-wrap: wrap; gap: 10px;"></div>
+                    <div id="limitWarning" style="color: red; margin-top: 5px; display: none;">Максимум 9 фото!</div>
+                </div>
+
+                <div style="margin-top: 10px; font-size: 16px;">
+                    <span><strong>Ціна:</strong></span>
+                    <span id="price" style="font-weight: bold; margin-left: 5px;">0</span>
+                    <span style="margin-left: 4px;">грн</span>
+                    <input type="hidden" id="priceInput" name="price" value="0" />
+                </div>
+
+                <button type="submit">Надіслати</button>
+            </form>
+
+            @if (TempData["UploadMessage"] != null)
+            {
+                <div class="message">@TempData["UploadMessage"]</div>
+            }
+        </div>
+
+        <div id="active-orders-container">
+            @await Html.PartialAsync("_ActiveOrdersPartial", new List<PhotoSubmission>())
+        </div>
+    }
+
+    <div class="card">
+        <h3>Інформація про мене</h3>
+        <form method="post" asp-action="Update">
+            <div class="form-group2">
+                <input type="text" id="firstName" name="FirstName" value="@Model.FirstName" placeholder=" " />
+                <label for="firstName">Ім’я</label>
+            </div>
+            <div class="form-group2">
+                <input type="text" id="lastName" name="LastName" value="@Model.LastName" placeholder=" " />
+                <label for="lastName">Прізвище</label>
+            </div>
+            <div class="form-group2">
+                <input type="text" id="phoneNumber" name="PhoneNumber" value="@Model.PhoneNumber" placeholder=" " />
+                <label for="phoneNumber">Телефон</label>
+            </div>
+            <button type="submit">Оновити дані</button>
+        </form>
+
+        @if (ViewBag.Message != null)
+        {
+            <div class="message">@ViewBag.Message</div>
+        }
+    </div>
+
+    <div class="logout-form">
+        <form asp-action="Logout" asp-controller="Account" method="post">
+            <button type="submit">Вийти з акаунта</button>
+        </form>
+    </div>
+</div>
+
+<script>
+    async function loadPage(page) {
+        const response = await fetch(`/Profile/ActiveOrdersPartial?page=${page}`);
+        const html = await response.text();
+        document.getElementById("active-orders-container").innerHTML = html;
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+        loadPage(1);
+    });
+
+    function previewMultipleImages(event) {
+        const files = event.target.files;
+        const container = document.getElementById("previewContainer");
+        const warning = document.getElementById("limitWarning");
+
+        container.innerHTML = "";
+        warning.style.display = "none";
+
+        if (files.length > 9) {
+            warning.style.display = "block";
+            event.target.value = "";
+            return;
+        }
+
+        Array.from(files).forEach(file => {
+            if (!file.type.startsWith("image/")) return;
+
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                const img = document.createElement("img");
+                img.src = e.target.result;
+                img.alt = "Попередній перегляд";
+                img.style.height = "150px";
+                img.style.width = "auto";
+                img.style.borderRadius = "6px";
+                img.style.objectFit = "contain";
+                container.appendChild(img);
+            };
+            reader.readAsDataURL(file);
+        });
+    }
+
+    function updatePrice() {
+        const service = document.getElementById("serviceType").value;
+        const priceDisplay = document.getElementById("price");
+        const priceInput = document.getElementById("priceInput");
+        let price = 0;
+
+        switch (service) {
+            case "background-removal":
+                price = 30;
+                break;
+            case "color-correction":
+                price = 40;
+                break;
+            case "retouch":
+                price = 50;
+                break;
+            case "convert-bw":
+                price = 20;
+                break;
+        }
+
+        priceDisplay.textContent = price;
+        priceInput.value = price;
+
+        document.querySelector("#serviceType option[value='']").disabled = true;
+    }
+</script>
+</body>
+</html>

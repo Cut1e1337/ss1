@@ -1,0 +1,60 @@
+﻿@{
+    ViewData["Title"] = "Pixelora";
+}
+
+
+
+
+        @* /* Секція заголовка */ /* _header section */ *@
+        @await Html.PartialAsync("~/Views/Home/Partials/_header.cshtml")
+
+
+        @* ----------------------------------------------------------------------- *@
+
+
+        @* /* Форма виклику */ /* _CallForm section */ *@
+        @await Html.PartialAsync("~/Views/Home/Partials/_CallForm.cshtml")
+
+
+        @* /* Прокрутити вгору */ /* _ScrollToTop section */ *@
+        @await Html.PartialAsync("~/Views/Home/Partials/_ScrollToTop.cshtml")
+
+
+        @* ----------------------------------------------------------------------- *@
+
+
+        @* /* Секція переваг */ /* _Benefits section */ *@
+        @await Html.PartialAsync("~/Views/Home/Partials/_Benefits.cshtml")
+
+        @* /* Секція послуг */ /* _Services section */ *@
+        @await Html.PartialAsync("~/Views/Home/Partials/_Services.cshtml")
+
+        @* /* Секція портфоліо */ /* _Portfolio section */ *@
+        @await Html.PartialAsync("~/Views/Home/Partials/_portfolio.cshtml")
+
+        @* /* Секція про нас */ /* _About section */ *@
+        @await Html.PartialAsync("~/Views/Home/Partials/about.cshtml")
+
+        @* /* Секція відгуків */ /* _Testimonials section */ *@
+        @await Html.PartialAsync("~/Views/Home/Partials/testimonials.cshtml")
+
+
+        
+
+
+
+        @* /* Секція контактів */ /* _Contact section */ *@
+        @* @await Html.PartialAsync("~/Views/Home/Partials/contact.cshtml") *@
+
+        @* /* Футер сайту */ /* _Main Footer */ *@
+        @await Html.PartialAsync("~/Views/Home/Partials/main-footer.cshtml")
+
+
+
+
+
+
+@* <button onclick="window.location.href='@Url.Action("Upload", "Photo")'" class="btn btn-primary"> 
+     Перейти на наступну сторінку 
+     </button> *@
+
