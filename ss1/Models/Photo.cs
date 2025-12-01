@@ -1,4 +1,4 @@
-namespace ss1.Models
+﻿namespace ss1.Models
 {
     public class Photo
     {
@@ -10,5 +10,8 @@ namespace ss1.Models
         public string UserEmail { get; set; }
         public int OrderNumber { get; set; }
 
+        // 🔽 НОВЕ
+        public int? AlbumId { get; set; }
+        public Album? Album { get; set; }
     }
 }

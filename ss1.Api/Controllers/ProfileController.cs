@@ -62,6 +62,42 @@ namespace ss1.Api.Controllers
             return Ok(result);
         }
 
+        // POST: api/profile
+        [HttpPost]
+        public async Task<ActionResult<ProfileDto>> CreateProfile([FromBody] CreateProfileDto dto)
+        {
+            // Перевірка чи email вже є
+            if (await _context.Users.AnyAsync(u => u.Email == dto.Email))
+                return Conflict("User with this email already exists.");
+
+            var user = new AppUser
+            {
+                Email = dto.Email,
+                PasswordHash = dto.Password, // ❗ Постав сюди хешування пізніше
+                FirstName = dto.FirstName,
+                LastName = dto.LastName,
+                PhoneNumber = dto.PhoneNumber,
+                Role = "User",
+                RegisteredAt = DateTime.UtcNow
+            };
+
+            _context.Users.Add(user);
+            await _context.SaveChangesAsync();
+
+            var result = new ProfileDto(
+                user.Id,
+                user.Email,
+                user.FirstName,
+                user.LastName,
+                user.PhoneNumber,
+                user.Role,
+                user.RegisteredAt
+            );
+
+            return CreatedAtAction(nameof(GetProfile), new { email = user.Email }, result);
+        }
+
+
         // GET: api/profile/{email}/active-orders?page=1&pageSize=5
         [HttpGet("{email}/active-orders")]
         public async Task<ActionResult<IEnumerable<PhotoSubmissionDto>>> GetActiveOrders(
