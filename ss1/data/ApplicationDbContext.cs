@@ -16,6 +16,8 @@ namespace ss1.Data
         public DbSet<AppUser> Users { get; set; }
         public DbSet<Album> Albums { get; set; }
         public DbSet<PhotoSubmission> PhotoSubmissions { get; set; }
+        public DbSet<Subscription> Subscriptions { get; set; }
+
 
 
     }
