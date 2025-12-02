@@ -1,11 +1,22 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using FluentValidation;
+using Microsoft.EntityFrameworkCore;
+using ss1.Api.Filters;
 using ss1.Data;
 using ss1.Interfaces;
 using ss1.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddControllers();
+// Controllers + наш глобальний фільтр валідації
+builder.Services
+    .AddControllers(options =>
+    {
+        options.Filters.Add<ValidationFilter>();
+    });
+
+// Реєструємо FluentValidation-валідатори (коли вони з’являться)
+builder.Services.AddValidatorsFromAssemblyContaining<Program>();
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
@@ -13,12 +24,10 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 {
     if (builder.Environment.IsEnvironment("Testing"))
     {
-        // Для інтеграційних тестів
         options.UseInMemoryDatabase("TestDb");
     }
     else
     {
-        // Для звичайного запуску API
         options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
     }
 });
@@ -28,7 +37,6 @@ builder.Services.AddScoped<IEmailSender, EmailSender>();
 
 var app = builder.Build();
 
-
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -36,7 +44,9 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
 app.MapControllers();
+
 app.Run();
 
 public partial class Program { }
