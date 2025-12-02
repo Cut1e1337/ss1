@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ss1.Api.Dtos;
+using ss1.Api.Validation;   // 👈 додали
 using ss1.Data;
 using ss1.Models;
 
@@ -56,10 +57,17 @@ namespace ss1.Api.Controllers
             return Ok(dto);
         }
 
-        // POST: api/photos (створення запису без реального файлу — для тестів/адмінки)
+        // POST: api/photos
         [HttpPost]
         public async Task<ActionResult<PhotoDto>> Create([FromBody] PhotoDto dto)
         {
+            // ✅ валідація
+            var errors = CreatePhotoValidator.Validate(dto);
+            if (errors.Any())
+            {
+                return BadRequest(new { errors });
+            }
+
             var photo = new Photo
             {
                 FileName = dto.FileName,
@@ -98,6 +106,5 @@ namespace ss1.Api.Controllers
 
             return NoContent();
         }
-
     }
 }

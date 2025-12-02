@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ss1.Api.Dtos;
+using ss1.Api.Validation;
 using ss1.Data;
 using ss1.Models;
 
@@ -52,7 +53,7 @@ namespace ss1.Api.Controllers
 
         // ==================== endpoints ====================
 
-        // GET: api/subscriptions  (наприклад, для адміна)
+        // GET: api/subscriptions
         [HttpGet]
         public async Task<ActionResult<IEnumerable<SubscriptionDto>>> GetAll()
         {
@@ -96,13 +97,15 @@ namespace ss1.Api.Controllers
             return Ok(MapToDto(sub));
         }
 
-
         // POST: api/subscriptions
-        // Створення нової підписки
         [HttpPost]
         public async Task<ActionResult<SubscriptionDto>> Create([FromBody] SubscriptionDto dto)
         {
-            // Якщо StartDate / EndDate не задані - виставляємо дефолт "місяць"
+            var errors = CreateSubscriptionValidator.Validate(dto);
+            if (errors.Any())
+                return BadRequest(new { errors });
+
+            // дефолти для дат
             var start = dto.StartDate == default ? DateTime.UtcNow : dto.StartDate;
             var end = dto.EndDate == default ? start.AddMonths(1) : dto.EndDate;
 
@@ -126,10 +129,15 @@ namespace ss1.Api.Controllers
         }
 
         // PUT: api/subscriptions/{id}
-        // Оновлення параметрів підписки (план, дати, автооновлення)
         [HttpPut("{id:int}")]
         public async Task<IActionResult> Update(int id, [FromBody] SubscriptionDto dto)
         {
+            dto.Id = id; // щоб валідатор знав, що ми оновлюємо саме цей id
+
+            var errors = UpdateSubscriptionValidator.Validate(dto);
+            if (errors.Any())
+                return BadRequest(new { errors });
+
             var sub = await _context.Subscriptions.FindAsync(id);
             if (sub == null)
                 return NotFound();

@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using ss1.Data;
 using ss1.Dtos;
 using ss1.Models;
+using ss1.Api.Validation; // 👈 ДОДАЛИ: простір імен для валідаторів
 
 namespace ss1.Api.Controllers
 {
@@ -82,8 +83,12 @@ namespace ss1.Api.Controllers
         [HttpPost]
         public async Task<ActionResult<AlbumDto>> CreateAlbum([FromBody] AlbumDto dto)
         {
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
+            // 🔍 Використовуємо CreateAlbumValidator
+            var errors = CreateAlbumValidator.Validate(dto);
+            if (errors.Any())
+            {
+                return BadRequest(new { errors });
+            }
 
             var album = new Album
             {
@@ -107,8 +112,12 @@ namespace ss1.Api.Controllers
         [HttpPut("{id:int}")]
         public async Task<IActionResult> UpdateAlbum(int id, [FromBody] AlbumDto dto)
         {
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
+            // 🔍 Використовуємо UpdateAlbumValidator
+            var errors = UpdateAlbumValidator.Validate(dto);
+            if (errors.Any())
+            {
+                return BadRequest(new { errors });
+            }
 
             var album = await _context.Albums
                 .Include(a => a.Photos)
@@ -136,10 +145,13 @@ namespace ss1.Api.Controllers
                 return NotFound();
 
             // Якщо потрібно – можна ще обнулити AlbumId в фото
-            foreach (var photo in album.Photos)
+            if (album.Photos != null)
             {
-                photo.AlbumId = null;
-                photo.Album = null;
+                foreach (var photo in album.Photos)
+                {
+                    photo.AlbumId = null;
+                    photo.Album = null;
+                }
             }
 
             _context.Albums.Remove(album);

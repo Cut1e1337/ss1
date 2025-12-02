@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ss1.Api.Dtos;
+using ss1.Api.Validation;
 using ss1.Data;
+using ss1.Models;
 
 namespace ss1.Api.Controllers
 {
@@ -21,7 +23,8 @@ namespace ss1.Api.Controllers
         public async Task<ActionResult<ProfileDto>> GetProfile(string email)
         {
             var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == email);
-            if (user == null) return NotFound();
+            if (user == null)
+                return NotFound();
 
             var dto = new ProfileDto(
                 user.Id,
@@ -40,9 +43,17 @@ namespace ss1.Api.Controllers
         [HttpPut("{email}")]
         public async Task<ActionResult<ProfileDto>> UpdateProfile(string email, [FromBody] UpdateProfileDto dto)
         {
+            // 1) Спочатку шукаємо користувача (важливо для тесту UnknownEmail -> 404)
             var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == email);
-            if (user == null) return NotFound();
+            if (user == null)
+                return NotFound();
 
+            // 2) Потім валідуємо дані
+            var errors = UpdateProfileValidator.Validate(dto);
+            if (errors.Any())
+                return BadRequest(new { errors });
+
+            // 3) Оновлюємо поля
             user.FirstName = dto.FirstName;
             user.LastName = dto.LastName;
             user.PhoneNumber = dto.PhoneNumber;
@@ -66,14 +77,20 @@ namespace ss1.Api.Controllers
         [HttpPost]
         public async Task<ActionResult<ProfileDto>> CreateProfile([FromBody] CreateProfileDto dto)
         {
-            // Перевірка чи email вже є
+            // 1) Валідація
+            var errors = CreateProfileValidator.Validate(dto);
+            if (errors.Any())
+                return BadRequest(new { errors });
+
+            // 2) Перевірка на існуючий email
             if (await _context.Users.AnyAsync(u => u.Email == dto.Email))
                 return Conflict("User with this email already exists.");
 
+            // 3) Створення користувача
             var user = new AppUser
             {
                 Email = dto.Email,
-                PasswordHash = dto.Password, // ❗ Постав сюди хешування пізніше
+                PasswordHash = dto.Password, // TODO: замінити на хешування
                 FirstName = dto.FirstName,
                 LastName = dto.LastName,
                 PhoneNumber = dto.PhoneNumber,
@@ -97,7 +114,6 @@ namespace ss1.Api.Controllers
             return CreatedAtAction(nameof(GetProfile), new { email = user.Email }, result);
         }
 
-
         // GET: api/profile/{email}/active-orders?page=1&pageSize=5
         [HttpGet("{email}/active-orders")]
         public async Task<ActionResult<IEnumerable<PhotoSubmissionDto>>> GetActiveOrders(
@@ -118,7 +134,7 @@ namespace ss1.Api.Controllers
                 .Take(pageSize)
                 .ToListAsync();
 
-            // Пишемо дані пагінації в заголовки (прикольно для Postman)
+            // хедери для пагінації
             Response.Headers["X-Total-Count"] = totalCount.ToString();
             Response.Headers["X-Current-Page"] = page.ToString();
             Response.Headers["X-Page-Size"] = pageSize.ToString();
